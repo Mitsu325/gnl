@@ -6,11 +6,11 @@
 #    By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/23 22:10:02 by pmitsuko          #+#    #+#              #
-#    Updated: 2021/02/24 08:41:13 by pmitsuko         ###   ########.fr        #
+#    Updated: 2021/02/24 20:28:37 by pmitsuko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FILES	=	get_next_line.c  main.c
+FILES	=	get_next_line.c get_next_line_utils.c  main.c
 
 CFLAGS	=	-Wall -Wextra -Werror
 
