@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/23 22:05:48 by pmitsuko          #+#    #+#             */
-/*   Updated: 2021/02/24 08:46:17 by pmitsuko         ###   ########.fr       */
+/*   Created: 2021/02/24 08:27:16 by pmitsuko          #+#    #+#             */
+/*   Updated: 2021/02/24 09:11:22 by pmitsuko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "get_next_line.h"
+#include <stdio.h>
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 8
-#endif
+int	get_next_line(int fd, char **line)
+{
+	int		ret;
+	char	buff[BUFFER_SIZE + 1];
+	int		l = 0;
 
-#include <stdlib.h>
-#include <unistd.h>
-
-int	get_next_line(int fd, char **line);
-
-#endif
+	if (fd < 0 || line == NULL)
+	{
+		printf("ERROR");
+		return (-1);
+	}
+	while ((ret = read(fd, buff, BUFFER_SIZE)) > 0)
+	{
+		*(buff + ret) = '\0';
+		printf("%d: %s\n", l++, buff);
+	}
+	return (0);
+}
