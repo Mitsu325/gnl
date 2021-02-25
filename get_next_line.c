@@ -6,7 +6,7 @@
 /*   By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 08:27:16 by pmitsuko          #+#    #+#             */
-/*   Updated: 2021/02/25 20:23:46 by pmitsuko         ###   ########.fr       */
+/*   Updated: 2021/02/25 20:43:44 by pmitsuko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		get_next_line(int fd, char **line)
 	static char	*str = NULL;
 	char		buff[BUFFER_SIZE + 1];
 	int			ret;
-//	int			index_bl;
+	int			index_bl;
 
 	if (fd < 0 || line == NULL)
 		return (R_ERROR);
@@ -48,7 +48,11 @@ int		get_next_line(int fd, char **line)
 	{
 		*(buff + ret) = '\0';
 		str = strjoin_free(str, buff);
-		printf(">> %s \n\n", str);
+		if ((index_bl = findchr(str, '\n')) != -1)
+		{
+			printf(">> %s \n\n", str);
+			return (R_LINE);
+		}
 	}
 	printf("FINAL>> %s \n\n", str);
 	return (0);
