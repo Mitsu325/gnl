@@ -6,14 +6,14 @@
 /*   By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 08:27:16 by pmitsuko          #+#    #+#             */
-/*   Updated: 2021/02/25 09:57:59 by pmitsuko         ###   ########.fr       */
+/*   Updated: 2021/02/25 20:23:46 by pmitsuko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
-int	strjoin_free(char *s1, char *s2)
+char	*strjoin_free(char *s1, char *s2)
 {
 	int		s1_len;
 	int		s2_len;
@@ -27,15 +27,20 @@ int	strjoin_free(char *s1, char *s2)
 	s2_len = ft_strlen(s2);
 	if (!(new_str = (char *)malloc((s1_len + s2_len + 1) * sizeof(char))))
 		return (NULL);
-	ft_memcpy()
+	ft_memcpy(new_str, s1, s1_len);
+	free(s1);
+	s1 = NULL;
+	ft_memcpy(new_str + s1_len, s2, s2_len);
+	*(new_str + (s1_len + s2_len)) = '\0';
+	return (new_str);
 }
 
-int	get_next_line(int fd, char **line)
+int		get_next_line(int fd, char **line)
 {
 	static char	*str = NULL;
 	char		buff[BUFFER_SIZE + 1];
 	int			ret;
-	int			index_bl;
+//	int			index_bl;
 
 	if (fd < 0 || line == NULL)
 		return (R_ERROR);
@@ -43,7 +48,8 @@ int	get_next_line(int fd, char **line)
 	{
 		*(buff + ret) = '\0';
 		str = strjoin_free(str, buff);
-		printf("%s \n\n", str);
+		printf(">> %s \n\n", str);
 	}
+	printf("FINAL>> %s \n\n", str);
 	return (0);
 }
