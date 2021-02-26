@@ -6,7 +6,7 @@
 /*   By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 09:16:17 by pmitsuko          #+#    #+#             */
-/*   Updated: 2021/02/25 20:47:33 by pmitsuko         ###   ########.fr       */
+/*   Updated: 2021/02/25 21:01:40 by pmitsuko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,26 @@ char	*ft_strdup(const char *s1)
 	return (s_alloc);
 }
 
-int		findchr(const char *s, char c)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	int		i;
+	char	*substr;
+	char	*new_str;
+	size_t	s_len;
+	size_t	i;
 
-	i = 0;
-	while (*(s + i) && *(s + i) != c)
-		i++;
-	if (*(s + i) != c)
-		return (-1);
-	return (i);
+	s_len = ft_strlen(s);
+	if (s == NULL || s_len < start)
+		return (ft_strdup(""));
+	if (start + len < s_len)
+		substr = (char *)malloc((len + 1) * sizeof(char));
+	else
+		substr = (char *)malloc((s_len - start + 1) * sizeof(char));
+	if (substr == NULL)
+		return (NULL);
+	i = start;
+	new_str = substr;
+	while (i < (start + len) && *(s + i))
+		*new_str++ = *(s + i++);
+	*new_str = '\0';
+	return (substr);
 }
