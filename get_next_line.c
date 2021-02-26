@@ -6,7 +6,7 @@
 /*   By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 08:27:16 by pmitsuko          #+#    #+#             */
-/*   Updated: 2021/02/25 21:18:38 by pmitsuko         ###   ########.fr       */
+/*   Updated: 2021/02/25 21:55:50 by pmitsuko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,13 @@ int		get_next_line(int fd, char **line)
 		str = strjoin_free(str, buff);
 		if ((index_bl = findchr(str, '\n')) != -1)
 		{
+			//printf("while - %d >> %s \n\n", ret, str);
 			strcpy_line(line, str, index_bl);
+			printf("line - %d, buff - %zu >> %s \n\n", ret, ft_strlen(buff), *line);
 			return (R_LINE);
 		}
 	}
+	printf("end - %d, buff - %zu >> %s \n\n", ret, ft_strlen(buff), str);
 	if (str)
 	{
 		*line = ft_strdup(str);
