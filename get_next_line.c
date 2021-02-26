@@ -6,12 +6,11 @@
 /*   By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 08:27:16 by pmitsuko          #+#    #+#             */
-/*   Updated: 2021/02/25 21:55:50 by pmitsuko         ###   ########.fr       */
+/*   Updated: 2021/02/26 09:54:31 by pmitsuko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 int		findchr(const char *s, char c)
 {
@@ -47,7 +46,7 @@ char	*strjoin_free(char *s1, char *s2)
 	return (new_str);
 }
 
-void	strcpy_line(char **line, char *str, int i)
+int		strcpy_line(char **line, char *str, int i)
 {
 	int str_len;
 
@@ -55,6 +54,7 @@ void	strcpy_line(char **line, char *str, int i)
 	*line = ft_substr(str, 0, i);
 	i++;
 	ft_memcpy(str, str + i, str_len + 1);
+	return (1);
 }
 
 int		get_next_line(int fd, char **line)
@@ -64,21 +64,15 @@ int		get_next_line(int fd, char **line)
 	int			ret;
 	int			index_bl;
 
-	if (fd < 0 || line == NULL)
+	if (fd < 0 || !line || BUFFER_SIZE < 1 || read(fd, buff, 0) < 0)
 		return (R_ERROR);
 	while ((ret = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
 		*(buff + ret) = '\0';
 		str = strjoin_free(str, buff);
 		if ((index_bl = findchr(str, '\n')) != -1)
-		{
-			//printf("while - %d >> %s \n\n", ret, str);
-			strcpy_line(line, str, index_bl);
-			printf("line - %d, buff - %zu >> %s \n\n", ret, ft_strlen(buff), *line);
-			return (R_LINE);
-		}
+			return (strcpy_line(line, str, index_bl));
 	}
-	printf("end - %d, buff - %zu >> %s \n\n", ret, ft_strlen(buff), str);
 	if (str)
 	{
 		*line = ft_strdup(str);
@@ -87,5 +81,5 @@ int		get_next_line(int fd, char **line)
 		return (R_EOF);
 	}
 	*line = ft_strdup("");
-	return (R_ERROR);
+	return (ret);
 }

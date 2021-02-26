@@ -6,7 +6,7 @@
 /*   By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 09:16:17 by pmitsuko          #+#    #+#             */
-/*   Updated: 2021/02/25 21:01:40 by pmitsuko         ###   ########.fr       */
+/*   Updated: 2021/02/26 09:09:36 by pmitsuko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	ptr_d = (char *)dst;
 	ptr_s = (char *)src;
 	if (!dst && !src)
-			return (NULL);
+		return (NULL);
 	i = 0;
 	while (i < n)
 	{

@@ -6,7 +6,7 @@
 /*   By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 08:07:32 by pmitsuko          #+#    #+#             */
-/*   Updated: 2021/02/25 21:40:36 by pmitsuko         ###   ########.fr       */
+/*   Updated: 2021/02/26 09:54:55 by pmitsuko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 int	main()
 {
-	int		fd;
+//	int		fd;
 	int		ret;
 	int 	line;
 	char	*buff;
@@ -24,7 +24,7 @@ int	main()
 	line = 0;
 //	fd = open("test_files/test1", O_RDONLY);
 //	fd = open("test_files/test2", O_RDONLY);
-	fd = open("test_files/test3", O_RDONLY);
+//	fd = open("test_files/test3", O_RDONLY);
 //	fd = open("test_files/test4", O_RDONLY);
 //	fd = open("test_files/test5", O_RDONLY);
 //	fd = open("test_files/test6", O_RDONLY);
@@ -45,7 +45,7 @@ int	main()
 //	fd = open("test_files/multiple_line_with_nl", O_RDONLY);
 //	fd = open("test_files/multiple_nlx5", O_RDONLY);
 
-	printf("fd = %d\n", fd);
+//	printf("fd = %d\n", fd);
 
 //	get_next_line(fd, &buff);
 
@@ -55,17 +55,18 @@ int	main()
 		free(buff);
 	}
 */
-	while ((ret = get_next_line(fd, &buff)) > 0)
+	while ((ret = get_next_line(-1, &buff)) > 0)
 	{
-//		printf("[Return: %d] Line #%d: %s\n", ret, ++line, buff);
+		printf("LER");
+		printf("[Return: %d] Line #%d: %s\n", ret, ++line, buff);
 		free(buff);
 	}
-/*	printf("[Return: %d] Line #%d: %s\n", ret, ++line, buff);
+	printf("[Return: %d] Line #%d: %s\n", ret, ++line, buff);
 	if (ret == -1)
 		printf("-----------\nError\n");
 	else if (ret == 0)
 		printf("-----------\nEnd of file\n");
-	close(fd);*/
+//	close(fd);
 
 	return (0);
 }
