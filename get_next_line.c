@@ -6,11 +6,12 @@
 /*   By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 08:27:16 by pmitsuko          #+#    #+#             */
-/*   Updated: 2021/02/26 09:54:31 by pmitsuko         ###   ########.fr       */
+/*   Updated: 2021/02/26 20:26:13 by pmitsuko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 int		findchr(const char *s, char c)
 {
@@ -51,9 +52,13 @@ int		strcpy_line(char **line, char *str, int i)
 	int str_len;
 
 	str_len = ft_strlen(str);
+//	printf(">> tamanho da str: %s, %d!! \n", str, str_len);
 	*line = ft_substr(str, 0, i);
+//	printf(">> line: %s, %zu \n", *line, ft_strlen(*line));
 	i++;
+//	printf(">> index_nl: %d \n", i);
 	ft_memcpy(str, str + i, str_len + 1);
+//	printf(">> tamanho da str: %s, %d!! \n", str, str_len);
 	return (1);
 }
 
@@ -66,19 +71,26 @@ int		get_next_line(int fd, char **line)
 
 	if (fd < 0 || !line || BUFFER_SIZE < 1 || read(fd, buff, 0) < 0)
 		return (R_ERROR);
+	if (str)
+		if ((index_bl = findchr(str, '\n')) != -1)
+			return (strcpy_line(line, str, index_bl));
 	while ((ret = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
 		*(buff + ret) = '\0';
+	//	printf(">> tamanho do buff: %s, %zu!! \n", buff, ft_strlen(buff));
 		str = strjoin_free(str, buff);
 		if ((index_bl = findchr(str, '\n')) != -1)
+		{
+	//		printf("tem nl: %d!! \n", index_bl);
 			return (strcpy_line(line, str, index_bl));
+		}
 	}
 	if (str)
 	{
 		*line = ft_strdup(str);
 		free(str);
 		str = NULL;
-		return (R_EOF);
+		return (ret);
 	}
 	*line = ft_strdup("");
 	return (ret);
