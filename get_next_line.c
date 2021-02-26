@@ -6,7 +6,7 @@
 /*   By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 08:27:16 by pmitsuko          #+#    #+#             */
-/*   Updated: 2021/02/25 21:04:41 by pmitsuko         ###   ########.fr       */
+/*   Updated: 2021/02/25 21:18:38 by pmitsuko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*strjoin_free(char *s1, char *s2)
 	return (new_str);
 }
 
-int		strcpy_line(char **line, char *str, int i)
+void	strcpy_line(char **line, char *str, int i)
 {
 	int str_len;
 
@@ -55,7 +55,6 @@ int		strcpy_line(char **line, char *str, int i)
 	*line = ft_substr(str, 0, i);
 	i++;
 	ft_memcpy(str, str + i, str_len + 1);
-	return (1);
 }
 
 int		get_next_line(int fd, char **line)
@@ -74,11 +73,16 @@ int		get_next_line(int fd, char **line)
 		if ((index_bl = findchr(str, '\n')) != -1)
 		{
 			strcpy_line(line, str, index_bl);
-			printf("line >> %s \n\n", *line);
-			printf("str >> %s \n\n", str);
 			return (R_LINE);
 		}
 	}
-	printf("FINAL>> %s \n\n", str);
-	return (0);
+	if (str)
+	{
+		*line = ft_strdup(str);
+		free(str);
+		str = NULL;
+		return (R_EOF);
+	}
+	*line = ft_strdup("");
+	return (R_ERROR);
 }

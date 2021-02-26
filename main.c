@@ -6,7 +6,7 @@
 /*   By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 08:07:32 by pmitsuko          #+#    #+#             */
-/*   Updated: 2021/02/25 20:09:50 by pmitsuko         ###   ########.fr       */
+/*   Updated: 2021/02/25 21:14:34 by pmitsuko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 int	main()
 {
 	int		fd;
-//	int		ret;
+	int		ret;
 	int 	line;
 	char	*buff;
 		
@@ -25,7 +25,7 @@ int	main()
 	fd = open("test_files/test1", O_RDONLY);
 	printf("fd = %d\n", fd);
 
-	get_next_line(fd, &buff);
+//	get_next_line(fd, &buff);
 
 /*	while ((ret = get_next_line(fd, &buff)) > 0)
 	{
@@ -33,7 +33,7 @@ int	main()
 		free(buff);
 	}
 */
-/*	while ((ret = get_next_line(fd, &buff)) > 0)
+	while ((ret = get_next_line(fd, &buff)) > 0)
 	{
 		printf("[Return: %d] Line #%d: %s\n", ret, ++line, buff);
 		free(buff);
@@ -44,6 +44,6 @@ int	main()
 	else if (ret == 0)
 		printf("-----------\nEnd of file\n");
 	close(fd);
-*/
+
 	return (0);
 }
