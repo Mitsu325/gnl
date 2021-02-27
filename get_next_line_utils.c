@@ -6,7 +6,7 @@
 /*   By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 09:16:17 by pmitsuko          #+#    #+#             */
-/*   Updated: 2021/02/26 09:09:36 by pmitsuko         ###   ########.fr       */
+/*   Updated: 2021/02/27 14:08:42 by pmitsuko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	char	*ptr_s;
 	size_t	i;
 
-	ptr_d = (char *)dst;
-	ptr_s = (char *)src;
 	if (!dst && !src)
 		return (NULL);
+	ptr_d = (char *)dst;
+	ptr_s = (char *)src;
 	i = 0;
 	while (i < n)
 	{
@@ -46,11 +46,11 @@ char	*ft_strdup(const char *s1)
 	size_t	len;
 	char	*s_alloc;
 
-	len = ft_strlen(s1) + 1;
-	s_alloc = (char *)malloc(len * sizeof(char));
-	if (s_alloc == NULL)
+	len = ft_strlen(s1);
+	if (!(s_alloc = (char *)malloc((len + 1) * sizeof(char))))
 		return (NULL);
 	ft_memcpy(s_alloc, s1, len);
+	*(s_alloc + len) = '\0';
 	return (s_alloc);
 }
 
