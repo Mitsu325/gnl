@@ -6,17 +6,17 @@
 /*   By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 08:07:32 by pmitsuko          #+#    #+#             */
-/*   Updated: 2021/02/27 14:55:16 by pmitsuko         ###   ########.fr       */
+/*   Updated: 2021/02/27 15:37:03 by pmitsuko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #include <stdio.h>
 #include <fcntl.h>
 
 int	main()
 {
-	int		fd;
+	int		fd[4];
 	int		ret;
 	int 	line;
 	char	*buff = NULL;
@@ -44,21 +44,13 @@ int	main()
 //	fd = open("test_files/multiple_line_no_nl", O_RDONLY);
 //	fd = open("test_files/multiple_line_with_nl", O_RDONLY);
 //	fd = open("test_files/multiple_nlx5", O_RDONLY);
-	fd = open("test_files/long-3x", O_RDONLY);
+	fd[0] = open("test_files/41_with_nl", O_RDONLY);
+	fd[1] = open("test_files/42_with_nl", O_RDONLY);
+	fd[2] = open("test_files/43_with_nl", O_RDONLY);
+	fd[3] = open("test_files/nl", O_RDONLY);
 
-	printf("fd = %d\n", fd);
-
-//	get_next_line(fd, &buff);
-
-/*	while ((ret = get_next_line(fd, &buff)) > 0)
+	while ((ret = get_next_line(fd[0], &buff)) > 0)
 	{
-		printf("[Return: %d] Line #%d: %s\n", ret, ++line, buff);
-		free(buff);
-	}
-*/
-	while ((ret = get_next_line(fd, &buff)) > 0)
-	{
-//		printf("LER");
 		printf("[Return: %d] Line #%d: %s\n", ret, ++line, buff);
 		free(buff);
 	}
@@ -67,7 +59,22 @@ int	main()
 		printf("-----------\nError\n");
 	else if (ret == 0)
 		printf("-----------\nEnd of file\n");
-	close(fd);
+	
+	while ((ret = get_next_line(fd[1], &buff)) > 0)
+	{
+		printf("[Return: %d] Line #%d: %s\n", ret, ++line, buff);
+		free(buff);
+	}
+	printf("[Return: %d] Line #%d: %s\n", ret, ++line, buff);
+	if (ret == -1)
+		printf("-----------\nError\n");
+	else if (ret == 0)
+		printf("-----------\nEnd of file\n");
+	
+	close(fd[0]);
+	close(fd[1]);
+	close(fd[2]);
+	close(fd[3]);
 
 	return (0);
 }
