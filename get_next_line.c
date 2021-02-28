@@ -6,7 +6,7 @@
 /*   By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 08:27:16 by pmitsuko          #+#    #+#             */
-/*   Updated: 2021/02/27 23:06:18 by pmitsuko         ###   ########.fr       */
+/*   Updated: 2021/02/28 10:09:01 by pmitsuko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,32 @@ int		strcpy_line(char **line, char *str, int i)
 int		get_next_line(int fd, char **line)
 {
 	static char	*str = NULL;
-	char		buff[BUFFER_SIZE + 1];
+	char		*buff;
 	int			ret;
 	int			index_bl;
 
-	if (fd < 0 || !line || BUFFER_SIZE < 1 || read(fd, buff, 0) < 0)
+	if (fd < 0 || !line || BUFFER_SIZE < 1 || read(fd, str, 0) < 0
+			|| !(buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (R_ERROR);
 	if (str && (index_bl = findchr(str, '\n')) != -1)
+	{
+		free(buff);
+		buff = NULL;
 		return (strcpy_line(line, str, index_bl));
+	}
 	while ((ret = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
 		*(buff + ret) = '\0';
 		str = strjoin_free(str, buff);
 		if ((index_bl = findchr(str, '\n')) != -1)
+		{
+			free(buff);
+			buff = NULL;
 			return (strcpy_line(line, str, index_bl));
+		}
 	}
+	free(buff);
+	buff = NULL;
 	if (str)
 	{
 		*line = ft_strdup(str);

@@ -6,7 +6,7 @@
 /*   By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 22:05:48 by pmitsuko          #+#    #+#             */
-/*   Updated: 2021/02/27 22:26:08 by pmitsuko         ###   ########.fr       */
+/*   Updated: 2021/02/28 09:08:11 by pmitsuko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 8
-# endif
 
 # define R_LINE 1
 # define R_EOF 0
