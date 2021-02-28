@@ -6,7 +6,7 @@
 /*   By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 08:27:16 by pmitsuko          #+#    #+#             */
-/*   Updated: 2021/02/28 12:35:31 by pmitsuko         ###   ########.fr       */
+/*   Updated: 2021/02/28 15:15:35 by pmitsuko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int		strcpy_line_bl(char **line, char *str, int i, char *buff)
 	int str_len;
 
 	free(buff);
-	buff = NULL;
 	str_len = ft_strlen(str);
 	*line = ft_substr(str, 0, i);
 	i++;
@@ -59,18 +58,25 @@ int		strcpy_line_bl(char **line, char *str, int i, char *buff)
 	return (1);
 }
 
-void	strcpy_line(char **line, char *buff, char *str)
+int		get_read(int fd, char **line, char *buff, char **str)
 {
-	free(buff);
-	buff = NULL;
-	if (str)
+	int	index_bl;
+	int	ret;
+
+	while ((ret = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
-		*line = ft_strdup(str);
-		free(str);
-		str = NULL;
-		return ;
+		*(buff + ret) = '\0';
+		if (*str)
+			*str = strjoin_free(*str, buff);
+		else
+			*str = ft_strdup(buff);
+		if ((index_bl = findchr(*str, '\n')) != -1)
+		{
+			strcpy_line_bl(line, *str, index_bl, buff);
+			return (-42);
+		}
 	}
-	*line = ft_strdup("");
+	return (ret);
 }
 
 int		get_next_line(int fd, char **line)
@@ -78,20 +84,23 @@ int		get_next_line(int fd, char **line)
 	static char	*str = NULL;
 	char		*buff;
 	int			ret;
-	int			index_bl;
+	int			index;
 
 	if (fd < 0 || !line || BUFFER_SIZE < 1 || read(fd, str, 0) < 0
 			|| !(buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (R_ERROR);
-	if (str && (index_bl = findchr(str, '\n')) != -1)
-		return (strcpy_line_bl(line, str, index_bl, buff));
-	while ((ret = read(fd, buff, BUFFER_SIZE)) > 0)
+	if (str && (index = findchr(str, '\n')) != -1)
+		return (strcpy_line_bl(line, str, index, buff));
+	if ((ret = get_read(fd, line, buff, &str)) == -42)
+		return (1);
+	free(buff);
+	if (str)
 	{
-		*(buff + ret) = '\0';
-		str = strjoin_free(str, buff);
-		if ((index_bl = findchr(str, '\n')) != -1)
-			return (strcpy_line_bl(line, str, index_bl, buff));
+		*line = ft_strdup(str);
+		free(str);
+		str = NULL;
+		return (ret);
 	}
-	strcpy_line(line, buff, str);
+	*line = ft_strdup("");
 	return (ret);
 }
