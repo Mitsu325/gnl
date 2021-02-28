@@ -6,7 +6,7 @@
 /*   By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 09:16:17 by pmitsuko          #+#    #+#             */
-/*   Updated: 2021/02/27 14:08:42 by pmitsuko         ###   ########.fr       */
+/*   Updated: 2021/02/27 22:26:44 by pmitsuko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	char	*ptr_s;
 	size_t	i;
 
-	if (!dst && !src)
+	if (dst == NULL || src == NULL)
 		return (NULL);
 	ptr_d = (char *)dst;
 	ptr_s = (char *)src;
@@ -52,6 +52,24 @@ char	*ft_strdup(const char *s1)
 	ft_memcpy(s_alloc, s1, len);
 	*(s_alloc + len) = '\0';
 	return (s_alloc);
+}
+
+void	ft_strcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t i;
+
+	if (!dst || !src)
+		return ;
+	i = 0;
+	if (dstsize > 0)
+	{
+		while (*(src + i) && i + 1 < dstsize)
+		{
+			*(dst + i) = *(src + i);
+			i++;
+		}
+		*(dst + i) = '\0';
+	}
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)

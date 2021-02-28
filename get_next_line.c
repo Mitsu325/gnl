@@ -6,11 +6,12 @@
 /*   By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 08:27:16 by pmitsuko          #+#    #+#             */
-/*   Updated: 2021/02/26 20:46:48 by pmitsuko         ###   ########.fr       */
+/*   Updated: 2021/02/27 23:06:18 by pmitsuko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 int		findchr(const char *s, char c)
 {
@@ -53,7 +54,7 @@ int		strcpy_line(char **line, char *str, int i)
 	str_len = ft_strlen(str);
 	*line = ft_substr(str, 0, i);
 	i++;
-	ft_memcpy(str, str + i, str_len + 1);
+	ft_strcpy(str, str + i, str_len + 1);
 	return (1);
 }
 

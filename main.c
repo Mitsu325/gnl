@@ -6,7 +6,7 @@
 /*   By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 08:07:32 by pmitsuko          #+#    #+#             */
-/*   Updated: 2021/02/27 14:55:16 by pmitsuko         ###   ########.fr       */
+/*   Updated: 2021/02/27 22:08:36 by pmitsuko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main()
 	line = 0;
 //	fd = open("test_files/test1", O_RDONLY);
 //	fd = open("test_files/test2", O_RDONLY);
-//	fd = open("test_files/test3", O_RDONLY);
+	fd = open("test_files/test3", O_RDONLY);
 //	fd = open("test_files/test4", O_RDONLY);
 //	fd = open("test_files/test5", O_RDONLY);
 //	fd = open("test_files/test6", O_RDONLY);
@@ -44,7 +44,7 @@ int	main()
 //	fd = open("test_files/multiple_line_no_nl", O_RDONLY);
 //	fd = open("test_files/multiple_line_with_nl", O_RDONLY);
 //	fd = open("test_files/multiple_nlx5", O_RDONLY);
-	fd = open("test_files/long-3x", O_RDONLY);
+//	fd = open("test_files/long-3x", O_RDONLY);
 
 	printf("fd = %d\n", fd);
 
