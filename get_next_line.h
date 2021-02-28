@@ -6,7 +6,7 @@
 /*   By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 22:05:48 by pmitsuko          #+#    #+#             */
-/*   Updated: 2021/02/28 12:08:52 by pmitsuko         ###   ########.fr       */
+/*   Updated: 2021/02/28 12:34:33 by pmitsuko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 int		findchr(const char *s, char c);
 char	*strjoin_free(char *s1, char *s2);
-int		strcpy_line(char **line, char *str, int i, char *buff);
+int		strcpy_line_bl(char **line, char *str, int i, char *buff);
+void	strcpy_line(char **line, char *buff, char *str);
 
 #endif

@@ -6,12 +6,11 @@
 /*   By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 08:27:16 by pmitsuko          #+#    #+#             */
-/*   Updated: 2021/02/28 12:11:27 by pmitsuko         ###   ########.fr       */
+/*   Updated: 2021/02/28 12:35:31 by pmitsuko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 int		findchr(const char *s, char c)
 {
@@ -47,7 +46,7 @@ char	*strjoin_free(char *s1, char *s2)
 	return (new_str);
 }
 
-int		strcpy_line(char **line, char *str, int i, char *buff)
+int		strcpy_line_bl(char **line, char *str, int i, char *buff)
 {
 	int str_len;
 
@@ -58,6 +57,20 @@ int		strcpy_line(char **line, char *str, int i, char *buff)
 	i++;
 	ft_strcpy(str, str + i, str_len + 1);
 	return (1);
+}
+
+void	strcpy_line(char **line, char *buff, char *str)
+{
+	free(buff);
+	buff = NULL;
+	if (str)
+	{
+		*line = ft_strdup(str);
+		free(str);
+		str = NULL;
+		return ;
+	}
+	*line = ft_strdup("");
 }
 
 int		get_next_line(int fd, char **line)
@@ -71,23 +84,14 @@ int		get_next_line(int fd, char **line)
 			|| !(buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (R_ERROR);
 	if (str && (index_bl = findchr(str, '\n')) != -1)
-		return (strcpy_line(line, str, index_bl, buff));
+		return (strcpy_line_bl(line, str, index_bl, buff));
 	while ((ret = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
 		*(buff + ret) = '\0';
 		str = strjoin_free(str, buff);
 		if ((index_bl = findchr(str, '\n')) != -1)
-			return (strcpy_line(line, str, index_bl, buff));
+			return (strcpy_line_bl(line, str, index_bl, buff));
 	}
-	free(buff);
-	buff = NULL;
-	if (str)
-	{
-		*line = ft_strdup(str);
-		free(str);
-		str = NULL;
-		return (ret);
-	}
-	*line = ft_strdup("");
+	strcpy_line(line, buff, str);
 	return (ret);
 }
