@@ -6,30 +6,11 @@
 /*   By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 09:16:17 by pmitsuko          #+#    #+#             */
-/*   Updated: 2021/02/28 10:35:19 by pmitsuko         ###   ########.fr       */
+/*   Updated: 2021/02/28 11:05:00 by pmitsuko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-void	*ft_memcpy(void *dst, const void *src, size_t n)
-{
-	char	*ptr_d;
-	char	*ptr_s;
-	size_t	i;
-
-	if (dst == NULL || src == NULL)
-		return (NULL);
-	ptr_d = (char *)dst;
-	ptr_s = (char *)src;
-	i = 0;
-	while (i < n)
-	{
-		*(ptr_d + i) = *(ptr_s + i);
-		i++;
-	}
-	return (dst);
-}
 
 size_t	ft_strlen(const char *s)
 {
@@ -46,13 +27,10 @@ char	*ft_strdup(const char *s1)
 	size_t	len;
 	char	*s_alloc;
 
-	if (s1 == NULL)
+	len = ft_strlen(s1) + 1;
+	if (!(s_alloc = (char *)malloc(len * sizeof(char))))
 		return (NULL);
-	len = ft_strlen(s1);
-	if (!(s_alloc = (char *)malloc((len + 1) * sizeof(char))))
-		return (NULL);
-	ft_memcpy(s_alloc, s1, len);
-	*(s_alloc + len) = '\0';
+	ft_strcpy(s_alloc, s1, len);
 	return (s_alloc);
 }
 

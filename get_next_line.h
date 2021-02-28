@@ -6,7 +6,7 @@
 /*   By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 22:05:48 by pmitsuko          #+#    #+#             */
-/*   Updated: 2021/02/28 09:08:11 by pmitsuko         ###   ########.fr       */
+/*   Updated: 2021/02/28 12:08:52 by pmitsuko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,13 @@
 
 int		get_next_line(int fd, char **line);
 
-void	*ft_memcpy(void *dst, const void *src, size_t n);
 size_t	ft_strlen(const char *s);
+void	ft_strcpy(char *dst, const char *src, size_t dstsize);
 char	*ft_strdup(const char *s1);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-void	ft_strcpy(char *dst, const char *src, size_t dstsize);
 
 int		findchr(const char *s, char c);
 char	*strjoin_free(char *s1, char *s2);
-int		strcpy_line(char **line, char *str, int i);
+int		strcpy_line(char **line, char *str, int i, char *buff);
 
 #endif

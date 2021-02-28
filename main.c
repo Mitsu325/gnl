@@ -6,7 +6,7 @@
 /*   By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 08:07:32 by pmitsuko          #+#    #+#             */
-/*   Updated: 2021/02/28 10:06:27 by pmitsuko         ###   ########.fr       */
+/*   Updated: 2021/02/28 12:09:06 by pmitsuko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	main()
 	while ((ret = get_next_line(fd, &buff)) > 0)
 	{
 //		printf("LER");
-//		printf("[Return: %d] Line #%d: %s\n", ret, ++line, buff);
+		printf("[Return: %d] Line #%d: %s\n", ret, ++line, buff);
 		free(buff);
 	}
 	printf("[Return: %d] Line #%d: %s\n", ret, ++line, buff);

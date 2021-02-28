@@ -6,7 +6,7 @@
 /*   By: pmitsuko <pmitsuko@student.42sp.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 08:27:16 by pmitsuko          #+#    #+#             */
-/*   Updated: 2021/02/28 10:09:01 by pmitsuko         ###   ########.fr       */
+/*   Updated: 2021/02/28 12:11:27 by pmitsuko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,20 @@ char	*strjoin_free(char *s1, char *s2)
 	s2_len = ft_strlen(s2);
 	if (!(new_str = (char *)malloc((s1_len + s2_len + 1) * sizeof(char))))
 		return (NULL);
-	ft_memcpy(new_str, s1, s1_len);
+	ft_strcpy(new_str, s1, s1_len + 1);
 	free(s1);
 	s1 = NULL;
-	ft_memcpy(new_str + s1_len, s2, s2_len);
+	ft_strcpy(new_str + s1_len, s2, s2_len + 1);
 	*(new_str + (s1_len + s2_len)) = '\0';
 	return (new_str);
 }
 
-int		strcpy_line(char **line, char *str, int i)
+int		strcpy_line(char **line, char *str, int i, char *buff)
 {
 	int str_len;
 
+	free(buff);
+	buff = NULL;
 	str_len = ft_strlen(str);
 	*line = ft_substr(str, 0, i);
 	i++;
@@ -69,21 +71,13 @@ int		get_next_line(int fd, char **line)
 			|| !(buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (R_ERROR);
 	if (str && (index_bl = findchr(str, '\n')) != -1)
-	{
-		free(buff);
-		buff = NULL;
-		return (strcpy_line(line, str, index_bl));
-	}
+		return (strcpy_line(line, str, index_bl, buff));
 	while ((ret = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
 		*(buff + ret) = '\0';
 		str = strjoin_free(str, buff);
 		if ((index_bl = findchr(str, '\n')) != -1)
-		{
-			free(buff);
-			buff = NULL;
-			return (strcpy_line(line, str, index_bl));
-		}
+			return (strcpy_line(line, str, index_bl, buff));
 	}
 	free(buff);
 	buff = NULL;
